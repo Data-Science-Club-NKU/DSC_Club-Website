@@ -60,6 +60,15 @@
         font-weight: bold;
         margin-bottom: 1.5rem;
       }
+      .ended-tag {
+        background-color: #dc3545;
+        color: white;
+        padding: 0.5rem 0.5rem;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 0.7rem;
+        align-self: right;
+      }
 
       .cards-grid {
         display: grid;
@@ -103,7 +112,6 @@
       .card-detail {
         display: flex;
         align-items: center;
-        color: #4a5568;
         margin-bottom: 0.5rem;
       }
 
@@ -254,11 +262,14 @@
                                 <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
                             </svg>
                             <span>${competition.prize}</span>
+                            
                         </div>
                     </div>
+                    <span class="ended-tag">This competition has ended</span>
                     <div class="card-footer">
                         <a href="${competition.competitionLink}" target="_blank" class="competition-link">Go to Competition</a>
                     </div>
+                    
                 </div>
             `;
       }
