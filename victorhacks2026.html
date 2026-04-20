@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VictorHacks 2026 Recap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Epilogue:wght@300;400;500&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* ─── RESET & VARIABLES ─────────────────────────────── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #080c14;
+        --bg2: #0d1424;
+        --surface: #111927;
+        --border: #1e2f4a;
+        --cyan: #00d4ff;
+        --cyan-dim: #0099bb;
+        --gold: #f0b429;
+        --text: #c8d8ec;
+        --text-dim: #6b8099;
+        --white: #eef4ff;
+        --red: #ff4545;
+        --green: #00e676;
+        --ff-head: "Syne", sans-serif;
+        --ff-body: "Epilogue", sans-serif;
+        --ff-mono: "JetBrains Mono", monospace;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--ff-body);
+        font-size: 16px;
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+
+      /* ─── SCROLLBAR ─────────────────────────────────────── */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 3px;
+      }
+
+      /* ─── NOISE OVERLAY ─────────────────────────────────── */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.4;
+      }
+
+      /* ─── HEADER ────────────────────────────────────────── */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2.5rem;
+        height: 64px;
+        background: rgba(8, 12, 20, 0.85);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .logo img {
+        height: 36px;
+        width: 36px;
+        object-fit: contain;
+        border-radius: 6px;
+      }
+
+      .logo p {
+        font-family: var(--ff-head);
+        font-weight: 700;
+        font-size: 0.9rem;
+        letter-spacing: 0.02em;
+        color: var(--white);
+      }
+
+      .logo span {
+        color: var(--cyan);
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 0.25rem;
+      }
+
+      nav ul li a {
+        font-family: var(--ff-mono);
+        font-size: 0.78rem;
+        color: var(--text-dim);
+        text-decoration: none;
+        padding: 0.4rem 0.75rem;
+        border-radius: 4px;
+        letter-spacing: 0.04em;
+        transition: color 0.2s, background 0.2s;
+      }
+
+      nav ul li a:hover {
+        color: var(--cyan);
+        background: rgba(0, 212, 255, 0.07);
+      }
+
+      /* ─── MAIN CONTENT ──────────────────────────────────── */
+      main {
+        position: relative;
+        z-index: 10;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+      }
+
+      .recap-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        animation: fadeUp 0.6s ease-out forwards;
+      }
+
+      .recap-eyebrow {
+        font-family: var(--ff-mono);
+        font-size: 0.85rem;
+        letter-spacing: 0.2em;
+        color: var(--cyan);
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .recap-title {
+        font-family: var(--ff-head);
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 800;
+        color: var(--white);
+        margin-bottom: 1.5rem;
+        line-height: 1.1;
+      }
+
+      .recap-desc {
+        font-size: 1.1rem;
+        color: var(--text-dim);
+        max-width: 600px;
+        margin: 0 auto 2.5rem;
+        line-height: 1.8;
+      }
+
+      .btn-primary {
+        font-family: var(--ff-mono);
+        font-size: 0.9rem;
+        letter-spacing: 0.08em;
+        color: var(--bg);
+        background: var(--cyan);
+        border: none;
+        padding: 0.85rem 2rem;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        transition: transform 0.15s, box-shadow 0.15s;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 212, 255, 0.35);
+      }
+
+      /* ─── GALLERY GRID ──────────────────────────────────── */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 3rem;
+        animation: fadeUp 0.8s ease-out forwards;
+        animation-delay: 0.2s;
+        opacity: 0;
+      }
+
+      .gallery-item {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        aspect-ratio: 4 / 3;
+        border: 1px solid var(--border);
+        transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        background: var(--surface);
+      }
+
+      .gallery-item:hover {
+        transform: translateY(-5px);
+        border-color: var(--cyan);
+        box-shadow: 0 10px 30px rgba(0, 212, 255, 0.15);
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.05);
+      }
+
+      /* ─── ANIMATIONS ────────────────────────────────────── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ─── WINNERS SECTION ───────────────────────────────── */
+      .winners-section {
+        margin: 4rem 0;
+        animation: fadeUp 0.7s ease-out forwards;
+        animation-delay: 0.1s;
+        opacity: 0;
+      }
+      
+      .winners-section h2 {
+        font-family: var(--ff-head);
+        color: var(--white);
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .winners-table-container {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .winners-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+      }
+
+      .winners-table th,
+      .winners-table td {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .winners-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .winners-table th {
+        font-family: var(--ff-mono);
+        font-size: 0.85rem;
+        color: var(--cyan);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        background: rgba(8, 12, 20, 0.4);
+      }
+
+      .winners-table td {
+        color: var(--text-dim);
+      }
+
+      .winners-table tr:hover td {
+        background: rgba(0, 212, 255, 0.03);
+      }
+
+      .winner-category {
+        font-weight: 600;
+        color: var(--white);
+      }
+
+      .winner-name {
+        color: var(--gold);
+        font-family: var(--ff-mono);
+        font-size: 0.95rem;
+      }
+
+      /* ─── FOOTER ────────────────────────────────────────── */
+      footer {
+        background: var(--bg2);
+        border-top: 1px solid var(--border);
+        text-align: center;
+        padding: 2rem;
+        font-family: var(--ff-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        color: var(--text-dim);
+        position: relative;
+        z-index: 10;
+        margin-top: 4rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img
+          src="https://utfs.io/f/Gpb59x6yDgxICumO4x7jcQDRloqEAHU3gG7WzNkSm54Z2ebu"
+          alt="DSC NKU"
+        />
+        <p>Data Science Club <span>@ NKU</span></p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">← Back to Home</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class="recap-header">
+        <span class="recap-eyebrow">Event Recap</span>
+        <h1 class="recap-title">VictorHacks 2026</h1>
+        <p class="recap-desc">
+          Another incredible 24-hour hackathon in the books! We saw amazing
+          projects, incredible teamwork, and an unstoppable passion for building.
+          Thank you to everyone who participated and made this event a massive success.
+        </p>
+        <a href="https://victor-hacks2026.devpost.com" target="_blank" class="btn-primary">
+          <i class="fas fa-trophy"></i> View Projects on Devpost
+        </a>
+      </div>
+
+      <div class="winners-section">
+        <h2>VictorHacks 2026 Winners</h2>
+        <div class="winners-table-container">
+          <table class="winners-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Winner(s)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="winner-category">Best Overall</td>
+                <td class="winner-name">Footprints</td>
+              </tr>
+              <tr>
+                <td class="winner-category">MVP – Blue North</td>
+                <td class="winner-name">Alto</td>
+              </tr>
+              <tr>
+                <td class="winner-category">MLH + Data Science Club: Best Wellness Hack</td>
+                <td class="winner-name">MindScribe</td>
+              </tr>
+              <tr>
+                <td class="winner-category">MLH – Best Use of MongoDB Atlas</td>
+                <td class="winner-name">Alto, Footprints</td>
+              </tr>
+              <tr>
+                <td class="winner-category">MLH – Best Use of Solana</td>
+                <td class="winner-name">Footprints</td>
+              </tr>
+              <tr>
+                <td class="winner-category">MLH – Best Use of ElevenLabs</td>
+                <td class="winner-name">Alto, Footprints</td>
+              </tr>
+              <tr>
+                <td class="winner-category">MLH – Best Use of Gemini API</td>
+                <td class="winner-name">Hire Machine, Taste Tape</td>
+              </tr>
+              <tr>
+                <td class="winner-category">MLH – Vultr</td>
+                <td class="winner-name">Digibridge, Taste Tape</td>
+              </tr>
+              <tr>
+                <td class="winner-category">ElevenLabs and Featherless</td>
+                <td class="winner-name">Winner notified via email</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="victorhacks_pictures/Image%20(1).jpeg" alt="VictorHacks 2026 Moment" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img src="victorhacks_pictures/Image%20(2).jpeg" alt="VictorHacks 2026 Moment" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img src="victorhacks_pictures/Image%20(3).jpeg" alt="VictorHacks 2026 Moment" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img src="victorhacks_pictures/Image%20(4).jpeg" alt="VictorHacks 2026 Moment" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img src="victorhacks_pictures/Image%20(5).jpeg" alt="VictorHacks 2026 Moment" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img src="victorhacks_pictures/Image%20(6).jpeg" alt="VictorHacks 2026 Moment" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img src="victorhacks_pictures/Image%20(7).jpeg" alt="VictorHacks 2026 Moment" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img src="victorhacks_pictures/Image%20(8).jpeg" alt="VictorHacks 2026 Moment" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img src="victorhacks_pictures/Image%20(9).jpeg" alt="VictorHacks 2026 Moment" loading="lazy" />
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>© 2026 Data Science Club @ NKU — All rights reserved.</p>
+    </footer>
+  </body>
+</html>
